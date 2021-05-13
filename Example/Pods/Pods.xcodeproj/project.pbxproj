@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04086B2C264D783C0037408D /* UserNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04086B2A264D783C0037408D /* UserNotificationDelegate.swift */; };
+		04086B2D264D783C0037408D /* StreamLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04086B2B264D783C0037408D /* StreamLocation.swift */; };
 		6FC2E3FF043980B26AB13DE8FEE2F49E /* ios-location-listener-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EEB96B25F097B108BE68F07AE7E4D61 /* ios-location-listener-dummy.m */; };
 		7C0AB39AB4642C26721AB8691FC5C988 /* ios-location-listener-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D23568D25A30DE3E4F0388BC9AA8CE84 /* ios-location-listener-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7EDCCB7754FCFF30F6A313BDAA8EC24C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 		A7F1831A696FC5584C768015B1C3EF51 /* Pods-ios-location-listener_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F51B380B4BFB582AEF98812CF943830 /* Pods-ios-location-listener_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C957D6979AE9DC4762EB47D3783BCDCB /* Pods-ios-location-listener_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 483AF163BD45A274490E89A1A5DC98E1 /* Pods-ios-location-listener_Tests-dummy.m */; };
 		F27620A31816AAA674D4F65BAF5977FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		F844C75593271C502B9D8BCEF9CEAE82 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6962287ED6F4B1B0533AEF31CD40B0 /* ReplaceMe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04086B2A264D783C0037408D /* UserNotificationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationDelegate.swift; sourceTree = "<group>"; };
+		04086B2B264D783C0037408D /* StreamLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLocation.swift; sourceTree = "<group>"; };
 		10F3606AB76281F1C526B4D6E891343D /* ios-location-listener-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ios-location-listener-prefix.pch"; sourceTree = "<group>"; };
 		12EB9E03DD01829D8B3F91F075C9D598 /* Pods-ios-location-listener_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-location-listener_Tests-Info.plist"; sourceTree = "<group>"; };
 		26B575C95AC5937E8081C22AC0798743 /* Pods-ios-location-listener_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ios-location-listener_Tests.modulemap"; sourceTree = "<group>"; };
@@ -41,7 +44,6 @@
 		87805EF1367E251761087B6B72B929EE /* ios-location-listener.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = "ios-location-listener.podspec"; sourceTree = "<group>"; tabWidth = 2; };
 		97E8D200F24B3AD981BD5C984AB55ED1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BC6962287ED6F4B1B0533AEF31CD40B0 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = "ios-location-listener/Classes/ReplaceMe.swift"; sourceTree = "<group>"; };
 		C42EBBCBB60D89B39D3352B65B7508A1 /* ios_location_listener.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ios_location_listener.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4B51B0A24B5B5EE650981D93A8DF21 /* ios-location-listener-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ios-location-listener-Info.plist"; sourceTree = "<group>"; };
 		CE99E9BB0A5288A7760AD91BC8C21191 /* Pods-ios-location-listener_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-location-listener_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,7 +128,8 @@
 		7E1939530A92642036F9B0BA2D88B4C9 /* ios-location-listener */ = {
 			isa = PBXGroup;
 			children = (
-				BC6962287ED6F4B1B0533AEF31CD40B0 /* ReplaceMe.swift */,
+				04086B2B264D783C0037408D /* StreamLocation.swift */,
+				04086B2A264D783C0037408D /* UserNotificationDelegate.swift */,
 				190E53420206899D8644F31318777B56 /* Pod */,
 				3052AC426B1F59227620D0882A20BC05 /* Support Files */,
 			);
@@ -287,8 +290,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04086B2D264D783C0037408D /* StreamLocation.swift in Sources */,
 				6FC2E3FF043980B26AB13DE8FEE2F49E /* ios-location-listener-dummy.m in Sources */,
-				F844C75593271C502B9D8BCEF9CEAE82 /* ReplaceMe.swift in Sources */,
+				04086B2C264D783C0037408D /* UserNotificationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
