@@ -1,0 +1,16 @@
+PODS:
+  - ios-location-listener (0.1.0)
+
+DEPENDENCIES:
+  - ios-location-listener (from `../`)
+
+EXTERNAL SOURCES:
+  ios-location-listener:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ios-location-listener: b7640a9d5219931bd6e0dd714051a92f37b1612e
+
+PODFILE CHECKSUM: 37b4ab33c5204f1c6dac35d5b037198dfadf20d0
+
+COCOAPODS: 1.10.1
