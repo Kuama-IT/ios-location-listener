@@ -16,7 +16,7 @@ import UserNotifications
 extension CLLocationManager: UNUserNotificationCenterDelegate {
     
     func registerNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound]) { (granted:Bool, error:Error?) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge]) { (granted:Bool, error:Error?) in
             if error != nil { return }
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
@@ -36,7 +36,6 @@ extension CLLocationManager: UNUserNotificationCenterDelegate {
         content.badge = 0
         content.title = "Location Update"
         content.body = alert
-        content.sound = UNNotificationSound.default
         
         let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
         let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
