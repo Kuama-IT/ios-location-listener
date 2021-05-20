@@ -137,6 +137,10 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
           
             var regions = Set<CLCircularRegion>()
 
+            // region centered in the current position
+            let mRegion = createRegion(location: location, radius: minRadius, id: identifier)
+            regions.update(with: mRegion)
+            
             // region in front of the current position
             let nBearing = location.course
             let nLocation = getCheckPointsLocation(location: location, bearing: nBearing)
