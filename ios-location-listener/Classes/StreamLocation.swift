@@ -60,6 +60,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
      It starts to update locations
      */
     public func startUpdatingLocations(){
+        locationManager.startMonitoringSignificantLocationChanges()
         locationManager.startUpdatingLocation()
     }
     
@@ -121,6 +122,10 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
         }
         removeMonitoredRegions()
         locationManager.startUpdatingLocation()
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
     
     /// If set, it changes the alert message that will be displayed in the alert
