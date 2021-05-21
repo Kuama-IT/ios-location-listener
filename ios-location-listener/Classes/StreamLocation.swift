@@ -106,7 +106,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
         } else {
             CLLocationManager.scheduleLocalNotification(manager)(alert: "Last position lat:\(circRegion.center.latitude) long: \(circRegion.center.longitude)")
         }
-        removeMonitoredRegions()
+        locationManager.stopMonitoring(for: region)
         locationManager.startUpdatingLocation()
     }
     
@@ -120,10 +120,11 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
         } else {
             CLLocationManager.scheduleLocalNotification(manager)(alert: "Last position lat:\(circRegion.center.latitude) long: \(circRegion.center.longitude)")
         }
-        removeMonitoredRegions()
+        locationManager.stopMonitoring(for: region)
         locationManager.startUpdatingLocation()
     }
     
+    /// Inherited from the CLLocationManagerDelegate. This method is called when there is an update of location.
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
@@ -148,19 +149,19 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
             
             // region in front of the current position
             let nBearing = location.course
-            let nLocation = getCheckPointsLocation(location: location, bearing: nBearing)
+            let nLocation = LocationUtility.getCheckPointsLocation(location: location, bearing: nBearing)
             let nRegion = createRegion(location: nLocation, radius: minRadius, id: "n" + identifier)
             regions.update(with: nRegion)
             
             // region on the right of the current position
             let eBearing = location.course + 90
-            let eLocation = getCheckPointsLocation(location: location, bearing: eBearing)
+            let eLocation = LocationUtility.getCheckPointsLocation(location: location, bearing: eBearing)
             let eRegion = createRegion(location: eLocation, radius: minRadius, id: "e" + identifier)
             regions.update(with: eRegion)
 
             // region on the left of the current position
             let wBearing = location.course - 90
-            let wLocation = getCheckPointsLocation(location: location, bearing: wBearing)
+            let wLocation = LocationUtility.getCheckPointsLocation(location: location, bearing: wBearing)
             let wRegion = createRegion(location: wLocation, radius: minRadius, id: "w" + identifier)
             regions.update(with: wRegion)
 
@@ -189,35 +190,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate{
             locationManager.stopMonitoring(for: region)
         }
     }
-    
-    /// Calculate a new point centered 150 meters from location and with angle bearing from location using Haversine inverted formula
-    private func getCheckPointsLocation(location:CLLocation, bearing: Double)->CLLocation{
-        // data
-        let earthRadius = 6371e3 // in meters
-        let distance = 150.0 // in meters
-        let angularDistance = distance/earthRadius
-        let startingLatitude = deg2rad(location.coordinate.latitude)
-        let startingLongitude = deg2rad(location.coordinate.longitude)
-        let mBearings = deg2rad(bearing)
-        
-        // new latitude
-        var newLat = asin(sin(startingLatitude)*cos(angularDistance) +
-                            cos(startingLatitude)*sin(angularDistance)*cos(mBearings))
-        newLat = Double(round(rad2deg(newLat)*10e8)/10e8)
-        // new longitude
-        var newLon = startingLongitude + atan2(sin(mBearings)*sin(angularDistance)*cos(startingLatitude),
-                                               cos(angularDistance)-sin(startingLatitude)*sin(newLat))
-        newLon = Double(round(rad2deg(newLon)*10e8)/10e8)
-        return CLLocation(latitude: newLat, longitude: newLon)
-    }
-    
-    /// convert degrees to radians
-    private func deg2rad(_ number: Double) -> Double {
-        return number * .pi / 180
-    }
 
-    /// convert radians to degrees
-    func rad2deg(_ number: Double) -> Double {
-        return number * 180 / .pi
-    }}
+}
 
