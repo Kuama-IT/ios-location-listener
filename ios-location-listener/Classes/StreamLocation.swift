@@ -1,195 +1,168 @@
 //
-// StreamLocation.swift
-// StreamLocation
+//  LocationRequest.swift
+//  LocationListener
 //
-// Created by Kuama on 13/05/21.
+//  Created by Kuama on 29/04/21.
 //
 
 import Foundation
 import UIKit
-import Combine
 import CoreLocation
+import Combine
 
-/**
- This class manages to create a stream of location that will continue to update the user even if the app is terminated
- */
-public class StreamLocation: NSObject, CLLocationManagerDelegate{
+/// Enum for the accuracy of the location updates
+enum Accuracy {
+    case foot
+    case car
+    case bike
+}
+
+/// This class implements both UNUserNotificationCenterDelegate and  CLLocationManagerDelegate protocols.
+/// It manages to read a stream of location both in foreground and background.
+/// When the app gets killed or suspended it reads the location every 60 seconds minimum.
+class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
     
-    public var subject: PassthroughSubject<CLLocation, Never>?
-    
+    public let subject = PassthroughSubject<CLLocation, Never>()
+    private var notificationBody: String = ""
+    private var notificationTitle: String = "Location Update"
+    private let requestIdentifier = UUID.init().uuidString
+    private var notificationTimeInterval = 60.0
     private let locationManager = CLLocationManager()
     
-    private var alertString: String?
-    private let minRadius = 100.0 // min radius for creating a new region
-    private let identifier = "Location Stream"
     
-    /**
-     Setup the location manager and creates a PassthroughSubject that manages the stream of locations
-     */
-    public override init() {
+    override init() {
         super.init()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         self.setupLocationManager()
-        subject = PassthroughSubject()
     }
-    
-    /**
-     Setup the location manager: max accuracy, asks for backgroundupdates and the permission to retrieve the location when in the state of in use and always.
-     */
+
+    /// It sets up the location manager
     private func setupLocationManager(){
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.activityType = CLActivityType.other
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
-        if(!checkAuthorization()){
-            print("No location services active, please activate the GPS")
+        if(!checkLocationAuthorization()){
+            print("Provide authorizations")
         }
-        locationManager.registerNotifications()
-        
     }
     
-    /**
-     Check if the user has the GPS active
-     */
-    private func checkAuthorization() -> Bool{
+    /// Checks if we have the authorizations for retrieving the location
+    private func checkLocationAuthorization() -> Bool{
         return CLLocationManager.locationServicesEnabled() && CLLocationManager.significantLocationChangeMonitoringAvailable()
     }
     
-    /**
-     It starts to update locations
-     */
+    /// Set the title and/or the body of the notification.
+    public func setNotificationContent(title: String?, body: String?){
+        notificationTitle = title ?? notificationTitle
+        notificationBody = body ?? notificationBody
+    }
+    
+    /// Set the accuracy for the locations updates.
+    public func setAccuracy(accuracy: Accuracy){
+        switch accuracy {
+        case .bike, .foot:
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        case .car:
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        }
+    }
+    
+    /// It sets the notifications time interval. If it is less than 60 seconds, it will be set to 60 seconds.
+    public func setNotificationTimeInterval(timeInterval: Double){
+        if timeInterval < 60.0 {
+            notificationTimeInterval = 60.0
+        } else {
+            notificationTimeInterval = timeInterval
+        }
+    }
+    
+    /// It requests the authorizations for displaying the notifications and schedule to launch a new notification
+    func registerNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted:Bool, error:Error?) in
+            if error != nil { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+        UNUserNotificationCenter.current().delegate = self
+        showNotification(notificationTitle: notificationTitle, notificationBody: notificationBody, timeInterval: notificationTimeInterval, repeats: true)
+        locationManager.requestLocation()
+    }
+    
+    /// Method overriden from the NotificationCenterDelegate, it is called before a notification will appear
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        locationManager.requestLocation()
+        if let location = locationManager.location {
+            subject.send(location)
+        }
+        // if there's already a notification displayed, no new notifications will appear
+        UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: {notification in
+            if !notification.isEmpty {
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            }
+        })
+    }
+
+    /// It plans to launch a notification
+    func showNotification(notificationTitle: String, notificationBody: String, timeInterval: Double, repeats: Bool) {
+        let content = UNMutableNotificationContent()
+        let requestIdentifier = UUID.init().uuidString
+        
+        content.badge = 0
+        content.title = notificationTitle
+        content.body = notificationBody
+        
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: timeInterval, repeats: repeats)
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (error:Error?) in
+            print("Notification Register Success")
+        }
+        
+    }
+    
+    /// Remove all the notifications, both pending and delivered
+    func removeLocalNotifications(){
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removeAllPendingNotificationRequests()
+        notificationCenter.removeAllDeliveredNotifications()
+    }
+
+    /// Start updating locations
     public func startUpdatingLocations(){
+        registerNotifications()
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.startUpdatingLocation()
     }
     
-    /**
-     It stops the updates of locations
-     */
+    /// Stop updating locations
     public func stopUpdatingLocations(){
         locationManager.stopUpdatingLocation()
     }
     
-    /**
-     It stops the updates of locations and the monitoring of regions. The monitoring keeps alive the app even if it is closed
-     */
-    func stopUpdates(){
+    /// Stop both locations and notifications updates
+    public func stopUpdates(){
         stopUpdatingLocations()
-        removeMonitoredRegions()
         locationManager.stopMonitoringSignificantLocationChanges()
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllDeliveredNotifications()
         notificationCenter.removeAllPendingNotificationRequests()
     }
     
-    /**
-     Inherited from the CLLocationManagerDelegate. This method is called when there is an update of location.
-     */
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            
-            subject?.send(location)
-            if(!(UIApplication.shared.applicationState == .active)){
-                self.createMonitoredRegions(location: mLocation)
-            }
+    /// When it receives a new locations, it send it through the subject
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let mLocation = locations.last {
+            subject.send(mLocation)
         }
     }
     
-    /**
-     Inherited from the CLLocationManagerDelegate.  This method is called when the user exits from a region. If the app was terminated, the call to scheduleLocalNotification reactivates the app to restart the location updates.
-     */
-    public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        let circRegion = region as! CLCircularRegion
-        if(alertString != nil){
-            CLLocationManager.scheduleLocalNotification(manager)(alert: alertString!)
-        } else {
-            CLLocationManager.scheduleLocalNotification(manager)(alert: "Last position lat:\(circRegion.center.latitude) long: \(circRegion.center.longitude)")
-        }
-        locationManager.stopMonitoring(for: region)
-        locationManager.startUpdatingLocation()
-    }
-    
-    /**
-     Inherited from the CLLocationManagerDelegate.  This method is called when the user enters in a region. If the app was terminated, the call to scheduleLocalNotification reactivates the app to restart the location updates.
-     */
-    public func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        let circRegion = region as! CLCircularRegion
-        if(alertString != nil){
-            CLLocationManager.scheduleLocalNotification(manager)(alert: alertString!)
-        } else {
-            CLLocationManager.scheduleLocalNotification(manager)(alert: "Last position lat:\(circRegion.center.latitude) long: \(circRegion.center.longitude)")
-        }
-        locationManager.stopMonitoring(for: region)
-        locationManager.startUpdatingLocation()
-    }
-    
-    /// Inherited from the CLLocationManagerDelegate. This method is called when there is an update of location.
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
-    /// If set, it changes the alert message that will be displayed in the alert
-    public func setAlertMessage(string: String){
-        alertString = string
-    }
-    
-    /*
-     It creates three new regions in front, at the right and at the left of the current position
-     based on the direction in which the user is currently moving
-     */
-    func createMonitoredRegions(location: CLLocation){
-        if(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self)){
-          
-            var regions = Set<CLCircularRegion>()
-
-            // region centered in the current position
-            let mRegion = createRegion(location: location, radius: minRadius, id: identifier)
-            regions.update(with: mRegion)
-            
-            // region in front of the current position
-            let nBearing = location.course
-            let nLocation = LocationUtility.getCheckPointsLocation(location: location, bearing: nBearing)
-            let nRegion = createRegion(location: nLocation, radius: minRadius, id: "n" + identifier)
-            regions.update(with: nRegion)
-            
-            // region on the right of the current position
-            let eBearing = location.course + 90
-            let eLocation = LocationUtility.getCheckPointsLocation(location: location, bearing: eBearing)
-            let eRegion = createRegion(location: eLocation, radius: minRadius, id: "e" + identifier)
-            regions.update(with: eRegion)
-
-            // region on the left of the current position
-            let wBearing = location.course - 90
-            let wLocation = LocationUtility.getCheckPointsLocation(location: location, bearing: wBearing)
-            let wRegion = createRegion(location: wLocation, radius: minRadius, id: "w" + identifier)
-            regions.update(with: wRegion)
-
-            
-            locationManager.stopUpdatingLocation()
-            for region in regions {
-                locationManager.startMonitoring(for: region)
-            }
-        }
-    }
-    
-    /**
-     This method creates a region centered in the current location and it asks to be notified when the user exits from the region. The radius of the region is set to 1mt but the minimum radius is approx. 150mt and it's decided by iOS.
-     */
-    private func createRegion(location: CLLocation, radius: Double, id: String)-> CLCircularRegion{
-        let region = CLCircularRegion(center: location.coordinate, radius: minRadius, identifier: id)
-        region.notifyOnEntry = true
-        region.notifyOnExit = true
-        return region
-    }
-    
-    /// It removes all monitored regions
-    private func removeMonitoredRegions(){
-        let monitoredRegions = locationManager.monitoredRegions
-        for region in monitoredRegions {
-            locationManager.stopMonitoring(for: region)
-        }
-    }
-
 }
-
