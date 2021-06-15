@@ -1,5 +1,5 @@
 //
-//  LocationRequest.swift
+//  StreamLocation.swift
 //  LocationListener
 //
 //  Created by Kuama on 29/04/21.
@@ -17,32 +17,45 @@ public enum Accuracy {
     case bike
 }
 
+struct Constants {
+    struct Time {
+        static let defaultNotificationTimeInterval = 60.0
+        static let minimumTimeInterval = 60.0
+    }
+    struct Title {
+        static let notificationTitle = "Location Update"
+    }
+}
+
+enum AuthorizationError: Error {
+    case missingPermission(String)
+}
 
 /**
- This class registers the location of the user, even when the app is terminated.
- 
  This class reads the location of the user and shares it through Combine's PassthroughSubject.
  Once the location is started, It is possible to receive the updates calling the sink method on the subject.
  It implements both UNUserNotificationCenterDelegate and  CLLocationManagerDelegate protocols.
  When the app gets killed or suspended it reads the location every 60 seconds minimum.
  
  # Example: #
+ \`\`\`
  let streamLocation = StreamLocation()
  var cancellable: AnyCancellable? = nil
  stream.startUpdatingLocations()
  DispatchQueue.main.async{
      self.cancellable = stream.subject.publisher.sink{ location in
       ...   }
+ \`\`\`
  */
 public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
     
     public let subject = PassthroughSubject<CLLocation, Never>()
     private var notificationBody: String = ""
-    private var notificationTitle: String = "Location Update"
+    private var notificationTitle: String = Constants.Title.notificationTitle
     private let requestIdentifier = UUID.init().uuidString
-    private var notificationTimeInterval = 60.0 // default value in seconds
+    private var notificationTimeInterval = Constants.Time.defaultNotificationTimeInterval // default value in seconds
     private let locationManager = CLLocationManager()
-    private let minimumTimeInterval = 60.0 // in seconds
+    private let minimumTimeInterval = Constants.Time.minimumTimeInterval // in seconds
     
     
     override init() {
@@ -52,9 +65,7 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
 
     /**
-     This method setups the location manager.
-
-     This method sets the delegate for the location manager, the accuracy, the distance filter, 
+     This method sets the delegate for the location manager, the accuracy, the distance filter,
      grants the location updates when the app is in background, sets the activity type,
      requests permission for always reading the location and calls checkLocationAuthorization().
  
@@ -70,13 +81,11 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         if(!checkLocationAuthorization()){
-            print("Provide authorizations")
+            throw AuthorizationError.missingPermission("Please provide the GPS authorizations")
         }
     }
     
     /**
-    This method checks if there are the authorizations to read the location and returns.
- 
     This method checks if the locations services are enabled and if it's possible to monitor the location.
 
      - returns:
@@ -90,8 +99,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-    This method sets the title and/or the text of the notification.
- 
     This method takes a value for the title and a value for the body content for the notification.
  
     - parameters:
@@ -116,14 +123,12 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
         streamLocation.setNotificationContent(title:"My First Alert", body: nil)
          \`\`\`
      */
-    public func setNotificationContent(title: String?, body: String?){
+    public func setNotificationContent(title: String? = nil, body: String? = nil){
         notificationTitle = title ?? notificationTitle
         notificationBody = body ?? notificationBody
     }
     
     /**
-     This method sets the accuracy for the location updates.
-     
      This method takes a value for accuracy and set the correspondant value for the location updates.
      
      - parameters
@@ -140,7 +145,7 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
          streamLocation.setAccuracy(Accuracy.foot)
      \`\`\`
      */
-    public func setAccuracy(accuracy: Accuracy){
+    public func setAccuracy(_ accuracy: Accuracy){
         switch accuracy {
         case .bike, .foot:
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -150,8 +155,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-     This method sets the time interval between each notification.
- 
      This method sets the time interval between each notification
      that appears when the app goes in background or is terminated.
      
@@ -166,10 +169,10 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
      # Example: #
      \`\`\`
      let streamLocation = StreamLocation()
-     streamLocation.setNotificationTimeInterval(timeInterval: 90.0)
+     streamLocation.setNotificationTimeInterval(90.0)
      \`\`\`
      */
-    public func setNotificationTimeInterval(timeInterval: Double){
+    public func setNotificationTimeInterval(_ timeInterval: Double){
         if timeInterval < minimumTimeInterval {
             notificationTimeInterval = minimumTimeInterval
         } else {
@@ -178,8 +181,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-    This method requests the authorizations to schedule the launch of a new notifications.
-     
     This method asks for the authorizations to display notifications and it schedule the launch of a new notification.
      
      # Notes:#
@@ -200,8 +201,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-     This method is called before a notification appears.
-     
      This method ovverrides from the NotificationCenterDelegate protocol. This method is automatically called before the notification appears on the screen. When this method is invoked, it requests for a new location update and it sends it to the stream.
      */
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -218,8 +217,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
 
     /**
-     This method sets the trigger that will launch a notification.
-     
      This method prepares a trigger that will launch a new notification. The notification can be customized with parametres passed.
     
     - parameters
@@ -234,7 +231,7 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     3.timeInterval must be **Double** type.
     4.repeats must be **Bool** type.
      */
-    func showNotification(notificationTitle: String, notificationBody: String, timeInterval: Double, repeats: Bool) {
+    func showNotification(withTitle notificationTitle: String, andBody notificationBody: String, andInterval timeInterval: Double, repeats: Bool) {
         let content = UNMutableNotificationContent()
         let requestIdentifier = UUID.init().uuidString
         
@@ -253,8 +250,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-    This method removes both pending and delivered notifications.
-    
     This method removes all the notifications, both pending (planned) and delivered.
      
      #Notes: #
@@ -267,14 +262,12 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
 
     /**
-     This method starts to register the location of the user.
-     
      When this method is invoked, it starts to read the location of the user and register a notification that will start to appear when the app goes in background.
      
-     #Notes: #
+     # Notes: #
      1. If you want to customize the notification appearance (title, content, timeInterval), you should do it before calling this method.
      
-     #Example: #
+     # Example: #
      \`\`\`
         let streamLocation = StreamLocation()
         streamLocation.startUpdatingLocations()
@@ -287,14 +280,12 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-     This method stops to register the location of the user.
-     
      When this method is invoked, it stops to read the location of the user when the app is foreground or in the background. To stop the updates also when the app is terminated, you should call stopUpdates.
  
-     #Notes: #
+     # Notes: #
      This method stops to read the location only when the app is in foreground or in the background, **not** when the app is terminated.
      
-     #Example: #
+     # Example: #
      \`\`\`
         let streamLocation = StreamLocation()
         streamLocation.startUpdatingLocations()
@@ -307,15 +298,13 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-     This method stops to register the location of the user and to update the notifications.
-     
      This method stops to register the location of the user when it is in foreground, background and terminated. It also removes all the notifications, both pending and delivered.
      
-     #Notes: #
+     # Notes: #
      1.This method completely stops the updates both of notification and location updates.
      2.This method **must** be invoked when the app should stop, otherwise it will continue to update locations and notifications.
      
-     #Example: #
+     # Example: #
      \`\`\`
         let streamLocation = StreamLocation()
         streamLocation.startUpdatingLocations()
@@ -332,11 +321,9 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-    This method is called when a new location is available.
+    This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when a new location is available. If there is a new location, this method publishes it in the stream.
      
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when a new location is available. If there is a new location, this method publishes it in the stream.
-     
-     #Notes: #
+     # Notes: #
      This method shouldn't be invoked, it is automatically called by iOS.
      */
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -346,8 +333,6 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
     
     /**
-     This method is called when an error is thrown during the reading of the location.
-     
      This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the locationManager fails.
      */
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
