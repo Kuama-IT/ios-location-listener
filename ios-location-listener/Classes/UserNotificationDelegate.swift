@@ -16,7 +16,7 @@ import UserNotifications
 extension CLLocationManager: UNUserNotificationCenterDelegate {
     
     func registerNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound]) { (granted:Bool, error:Error?) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge]) { (granted:Bool, error:Error?) in
             if error != nil { return }
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
@@ -26,7 +26,7 @@ extension CLLocationManager: UNUserNotificationCenterDelegate {
     }
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.badge, .sound])
+        completionHandler([.badge)
     }
     
     func scheduleLocalNotification(alert:String) {
@@ -36,13 +36,21 @@ extension CLLocationManager: UNUserNotificationCenterDelegate {
         content.badge = 0
         content.title = "Location Update"
         content.body = alert
-        content.sound = UNNotificationSound.default
         
         let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1.0, repeats: false)
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { (error:Error?) in
             print("Notification Register Success")
         }
+    }
+    
+    func removeLocalNotifications(){
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getPendingNotificationRequests(completionHandler: {
+            _ in
+            notificationCenter.removeAllPendingNotificationRequests()
+        })
     }
     
 }
