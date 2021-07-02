@@ -45,7 +45,8 @@ NOTE: this will remain active even when the app is terminated unless you force c
 ```swift
 stream.stopUpdates()
 DispatchQueue.main.async {
-    self.cancellable?.cancel
+    self.cancellable?.cancel()
+    }
 ```
 
 7) By default the message in the UserNotification will be "Last position lat:\(currentLat), long: \(currentLong)". If you want to personalize it, you can call the method setAlertMessage on the stream and pass a string with the custom message you want to be displayed. 
