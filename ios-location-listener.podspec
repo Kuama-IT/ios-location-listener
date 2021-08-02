@@ -8,11 +8,11 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = 'https://github.com/Kuama-IT/ios-location-listener'
-  
+
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Kuama Dev Team' => 'hello@kuama.net' }
   s.source           = { :git => 'https://github.com/Kuama-IT/ios-location-listener.git', :tag => s.version.to_s }
-  
+
 
   s.ios.deployment_target = '13.0'
 

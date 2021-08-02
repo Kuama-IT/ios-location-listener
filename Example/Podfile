@@ -1,6 +1,13 @@
 use_frameworks!
-target 'ios-location-listener_Tests' do
+
+platform :ios, '14.0'
+
+target 'ios-location-listener_Example' do
   pod 'ios-location-listener', :path => '../'
-  
-  
+
+  target 'ios-location-listener_Tests' do
+    inherit! :search_paths
+
+
+  end
 end
