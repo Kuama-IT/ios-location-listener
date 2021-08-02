@@ -1,5 +1,4 @@
 import XCTest
-import ios-location-listener
 
 class Tests: XCTestCase {
     
