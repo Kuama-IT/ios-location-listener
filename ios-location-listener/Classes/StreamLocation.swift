@@ -190,7 +190,7 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
         *setNotificationContent: to change the title and the text content of the notification
      */
     func registerNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (granted:Bool, error:Error?) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .provisional]) { (granted:Bool, error:Error?) in
             if error != nil { return }
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
