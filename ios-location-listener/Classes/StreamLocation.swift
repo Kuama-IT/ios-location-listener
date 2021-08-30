@@ -22,9 +22,20 @@ enum AuthorizationError: Error {
     case missingPermission(String)
 }
 
+enum InvalidUpdateDelayError: Error {
+    case negativeDelay(String)
+}
+
 struct Constants {
     struct Numbers {
         static let minRadius = 100.0 // in meters
+        static let updateDelay = 10.0 // in seconds
+    }
+    struct ErrorDescription {
+        static let negativeDelayError = "The provided delay is negative so invalid: "
+    }
+    struct Names {
+        static let bkgQueueLabel = "BKG"
     }
 }
 
@@ -51,8 +62,11 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     
     private let logger = Logger(subsystem: "net.kuama.ios-bl-location-listener", category: "kuama")
+    private var updateDelay = Constants.Numbers.updateDelay
+    private var dispatchQueue: DispatchQueue
 
     public override init() {
+        dispatchQueue = DispatchQueue.init(label: Constants.Names.bkgQueueLabel)
         super.init()
         logger.log("Initialization")
     }
@@ -118,6 +132,18 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
         case .car:
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         }
+    }
+    
+    
+    
+    /// This method allow to set a new update delay that will wake the app in the background to read a new location
+    /// - Parameter updateDelay: the update time delay in seconds
+    /// - Throws: InvalidUpdateDelayError if the updateDelay is negative
+    public func setKilledAppUpdateDelay(updateDelay: Double) throws {
+        if (updateDelay <= 0) {
+            throw InvalidUpdateDelayError.negativeDelay(Constants.ErrorDescription.negativeDelayError + "\(updateDelay)")
+        }
+        self.updateDelay = updateDelay
     }
 
     /**
@@ -196,7 +222,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
             locationManager.requestState(for: newRegion)
             locationManager.stopUpdatingLocation()
         }
-
     }
 
     /**
@@ -207,14 +232,18 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     }
     
     public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        logger.log("Checking region state")
-        locationManager.requestState(for: region)
-        locationManager.startUpdatingLocation()
-        locationManager.requestLocation()
-        if let mLocation = locationManager.location {
-            subject.send(mLocation)
-            logger.log("Sending new location \(mLocation)")
+        let regions = manager.monitoredRegions
+
+        dispatchQueue.asyncAfter(deadline: .now() + updateDelay){ [self] in
+            logger.log("Checking region state")
+            logger.log("Monitored regions \(regions.count)")
+            locationManager.requestState(for: region)
+            
+            locationManager.requestLocation()
+            if let mLocation = locationManager.location {
+                subject.send(mLocation)
+                logger.log("Sending new location \(mLocation)")
+            }
         }
     }
-
 }
