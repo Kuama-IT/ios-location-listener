@@ -42,11 +42,12 @@
          
          Waypoints must be sorted by time in ascending order.
          -->
+        <time>2021-08-30T14:55:47Z</time>
     </wpt>
     
     <wpt lat="37.326595" lon="-122.031284">
         <name>Street3</name>
-        
+        <time>2021-08-30T14:55:57Z</time>
         <!--
          Optionally provide a time element for each waypoint. Xcode will interpolate movement
          at a rate of speed based on the time elapsed between each waypoint. If you do not provide
@@ -58,7 +59,7 @@
     
     <wpt lat="37.326550" lon="-122.029185">
         <name>Street4</name>
-        
+        <time>2021-08-30T14:56:00Z</time>
         <!--
          Optionally provide a time element for each waypoint. Xcode will interpolate movement
          at a rate of speed based on the time elapsed between each waypoint. If you do not provide

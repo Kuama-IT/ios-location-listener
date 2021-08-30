@@ -49,8 +49,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
 
     public let subject = PassthroughSubject<CLLocation, Never>()
     private let locationManager = CLLocationManager()
-    private var monitoredRegions = [CLCircularRegion]()
-    private var regionId = 0
     
     private let logger = Logger(subsystem: "net.kuama.ios-bl-location-listener", category: "kuama")
 
@@ -172,7 +170,8 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     public func stopUpdates() {
         stopUpdatingLocations()
         locationManager.stopMonitoringSignificantLocationChanges()
-        for region in monitoredRegions {
+        
+        for region in locationManager.monitoredRegions {
             locationManager.stopMonitoring(for: region)
         }
         
@@ -190,33 +189,14 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
             logger.log("New Location \(mLocation)")
             
             // start to monitor a new region centered on where the user currently is
+            // and request state for the current region (in or out) that will call didDetermineState 
             let newLocationCoordinate = CLLocationCoordinate2D.init(latitude: mLocation.coordinate.latitude, longitude: mLocation.coordinate.longitude)
-            let newRegion = CLCircularRegion.init(center: newLocationCoordinate, radius: Constants.Numbers.minRadius, identifier: "\(regionId)")
-            monitoredRegions.removeAll()
-            monitoredRegions.append(newRegion)
+            let newRegion = CLCircularRegion.init(center: newLocationCoordinate, radius: Constants.Numbers.minRadius, identifier: "\(mLocation)")
             locationManager.startMonitoring(for: newRegion)
+            locationManager.requestState(for: newRegion)
+            locationManager.stopUpdatingLocation()
         }
 
-    }
-    
-    /**
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the user exits from a monitored region.
-     */
-    public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        logger.log("Exit region")
-        // stop monitoring for this region and start updating locations
-        manager.stopMonitoring(for: region)
-        startUpdatingLocations()
-    }
-    
-    /**
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the user enters in a monitored region.
-     */
-    public func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        logger.log("Enter region")
-        // stop monitoring for this region and start updating locations
-        manager.stopMonitoring(for: region)
-        startUpdatingLocations()
     }
 
     /**
@@ -224,6 +204,17 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      */
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        logger.log("Checking region state")
+        locationManager.requestState(for: region)
+        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
+        if let mLocation = locationManager.location {
+            subject.send(mLocation)
+            logger.log("Sending new location \(mLocation)")
+        }
     }
 
 }
