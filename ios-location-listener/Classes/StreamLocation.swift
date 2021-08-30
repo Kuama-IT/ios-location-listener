@@ -17,15 +17,6 @@ public enum Accuracy {
     case bike
 }
 
-struct Constants {
-    struct Time {
-        static let defaultNotificationTimeInterval = 60.0
-        static let minimumTimeInterval = 60.0
-    }
-    struct Title {
-        static let notificationTitle = "Location Update"
-    }
-}
 
 enum AuthorizationError: Error {
     case missingPermission(String)
@@ -34,7 +25,7 @@ enum AuthorizationError: Error {
 /**
  This class reads the location of the user and shares it through Combine's PassthroughSubject.
  Once the location is started, It is possible to receive the updates calling the sink method on the subject.
- It implements both UNUserNotificationCenterDelegate and  CLLocationManagerDelegate protocols.
+ It implements CLLocationManagerDelegate protocol.
  When the app gets killed or suspended it reads the location every 60 seconds minimum.
  
  # Example: #
@@ -48,15 +39,11 @@ enum AuthorizationError: Error {
  \`\`\`
  */
 @available(iOS 14.0, *)
-public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocationManagerDelegate {
+public class StreamLocation: NSObject, CLLocationManagerDelegate {
 
     public let subject = PassthroughSubject<CLLocation, Never>()
-    private var notificationBody: String = ""
-    private var notificationTitle: String = Constants.Title.notificationTitle
-    private let requestIdentifier = UUID.init().uuidString
-    private var notificationTimeInterval = Constants.Time.defaultNotificationTimeInterval // default value in seconds
     private let locationManager = CLLocationManager()
-    private let minimumTimeInterval = Constants.Time.minimumTimeInterval // in seconds
+    
     private let logger = Logger(subsystem: "net.kuama.ios-bl-location-listener", category: "kuama")
 
     public override init() {
@@ -128,10 +115,7 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
 
     /**
-     When this method is invoked, it starts to read the location of the user and register a notification that will start to appear when the app goes in background.
-     
-     # Notes: #
-     1. If you want to customize the notification appearance (title, content, timeInterval), you should do it before calling this method.
+     When this method is invoked, it starts to read the location of the user.
      
      # Example: #
      \`\`\`
@@ -163,11 +147,11 @@ public class StreamLocation: NSObject, UNUserNotificationCenterDelegate, CLLocat
     }
 
     /**
-     This method stops to register the location of the user when it is in foreground, background and terminated. It also removes all the notifications, both pending and delivered.
+     This method stops to register the location of the user when it is in foreground, background and terminated.
      
      # Notes: #
-     1.This method completely stops the updates both of notification and location updates.
-     2.This method **must** be invoked when the app should stop, otherwise it will continue to update locations and notifications.
+     1.This method completely stops the location updates.
+     2.This method **must** be invoked when the app should stop, otherwise it will continue to update locations.
      
      # Example: #
      \`\`\`
