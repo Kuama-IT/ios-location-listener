@@ -22,6 +22,12 @@ enum AuthorizationError: Error {
     case missingPermission(String)
 }
 
+struct Constants {
+    struct Numbers {
+        static let minRadius = 100.0 // in meters
+    }
+}
+
 /**
  This class reads the location of the user and shares it through Combine's PassthroughSubject.
  Once the location is started, It is possible to receive the updates calling the sink method on the subject.
@@ -43,6 +49,8 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
 
     public let subject = PassthroughSubject<CLLocation, Never>()
     private let locationManager = CLLocationManager()
+    private var monitoredRegions = [CLCircularRegion]()
+    private var regionId = 0
     
     private let logger = Logger(subsystem: "net.kuama.ios-bl-location-listener", category: "kuama")
 
@@ -164,6 +172,10 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     public func stopUpdates() {
         stopUpdatingLocations()
         locationManager.stopMonitoringSignificantLocationChanges()
+        for region in monitoredRegions {
+            locationManager.stopMonitoring(for: region)
+        }
+        
     }
 
     /**
@@ -176,8 +188,35 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
         if let mLocation = locations.last {
             subject.send(mLocation)
             logger.log("New Location \(mLocation)")
+            
+            // start to monitor a new region centered on where the user currently is
+            let newLocationCoordinate = CLLocationCoordinate2D.init(latitude: mLocation.coordinate.latitude, longitude: mLocation.coordinate.longitude)
+            let newRegion = CLCircularRegion.init(center: newLocationCoordinate, radius: Constants.Numbers.minRadius, identifier: "\(regionId)")
+            monitoredRegions.removeAll()
+            monitoredRegions.append(newRegion)
+            locationManager.startMonitoring(for: newRegion)
         }
 
+    }
+    
+    /**
+     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the user exits from a monitored region.
+     */
+    public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        logger.log("Exit region")
+        // stop monitoring for this region and start updating locations
+        manager.stopMonitoring(for: region)
+        startUpdatingLocations()
+    }
+    
+    /**
+     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the user enters in a monitored region.
+     */
+    public func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        logger.log("Enter region")
+        // stop monitoring for this region and start updating locations
+        manager.stopMonitoring(for: region)
+        startUpdatingLocations()
     }
 
     /**
