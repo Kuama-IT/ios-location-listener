@@ -36,6 +36,7 @@ struct Constants {
     }
     struct Names {
         static let bkgQueueLabel = "BKG"
+        static let killedUpdateDelayKey = "killedUpdateDelayKey"
     }
 }
 
@@ -51,36 +52,34 @@ struct Constants {
  var cancellable: AnyCancellable? = nil
  stream.start()
  DispatchQueue.main.async{
-     self.cancellable = stream.subject.publisher.sink{ location in
-      ...   }
+ self.cancellable = stream.subject.publisher.sink{ location in
+ ...   }
  \`\`\`
  */
 @available(iOS 14.0, *)
 public class StreamLocation: NSObject, CLLocationManagerDelegate {
-
+    
     public let subject = PassthroughSubject<CLLocation, Never>()
     private let locationManager = CLLocationManager()
     
     private let logger = Logger(subsystem: "net.kuama.ios-bl-location-listener", category: "kuama")
-    private var updateDelay = Constants.Numbers.updateDelay
-    private var dispatchQueue: DispatchQueue
-
-    public override init() {
-        dispatchQueue = DispatchQueue.init(label: Constants.Names.bkgQueueLabel)
+    
+    
+    public override init(){
         super.init()
         logger.log("Initialization")
     }
-
+    
     public func start() throws {
         try self.setupLocationManager()
         self.startUpdatingLocations()
     }
-
+    
     /**
      This method sets the delegate for the location manager, the accuracy, the distance filter,
      grants the location updates when the app is in background, sets the activity type,
      requests permission for always reading the location and calls checkLocationAuthorization().
- 
+     
      # Notes: #
      1. This method is automatically called when a new StreamLocation object is created.
      */
@@ -96,33 +95,33 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
             throw AuthorizationError.missingPermission("Please provide the GPS authorizations")
         }
     }
-
+    
     /**
-    This method checks if the locations services are enabled and if it's possible to monitor the location.
+     This method checks if the locations services are enabled and if it's possible to monitor the location.
      - returns:
-        - True if the location services are enabled and if it's possible to monitor location changes.
-        
+     - True if the location services are enabled and if it's possible to monitor location changes.
+     
      # Notes: #
      1.Both location services and permission to monitor location changes must be granted.
      */
     private func checkLocationAuthorization() -> Bool {
         return CLLocationManager.locationServicesEnabled() && CLLocationManager.significantLocationChangeMonitoringAvailable()
     }
-
+    
     /**
      This method takes a value for accuracy and set the correspondant value for the location updates.
      
      - parameters
-        -accuracy: The accuracy you expect from the location updates.
+     -accuracy: The accuracy you expect from the location updates.
      # Notes: #
      1.Parameter must be a **Accuracy** type.
      2. If this method is not called, the accuracy is by default set to Accuracy.foot.
- 
+     
      # Example: #
      
      \`\`\`
-         let streamLocation = StreamLocation()
-         streamLocation.setAccuracy(Accuracy.foot)
+     let streamLocation = StreamLocation()
+     streamLocation.setAccuracy(Accuracy.foot)
      \`\`\`
      */
     public func setAccuracy(_ accuracy: Accuracy) {
@@ -135,49 +134,38 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     }
     
     
-    
-    /// This method allow to set a new update delay that will wake the app in the background to read a new location
-    /// - Parameter updateDelay: the update time delay in seconds
-    /// - Throws: InvalidUpdateDelayError if the updateDelay is negative
-    public func setKilledAppUpdateDelay(updateDelay: Double) throws {
-        if (updateDelay <= 0) {
-            throw InvalidUpdateDelayError.negativeDelay(Constants.ErrorDescription.negativeDelayError + "\(updateDelay)")
-        }
-        self.updateDelay = updateDelay
-    }
-
     /**
      When this method is invoked, it starts to read the location of the user.
      
      # Example: #
      \`\`\`
-        let streamLocation = StreamLocation()
-        streamLocation.startUpdatingLocations()
+     let streamLocation = StreamLocation()
+     streamLocation.startUpdatingLocations()
      \`\`\`
      */
     public func startUpdatingLocations() {
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.startUpdatingLocation()
     }
-
+    
     /**
      When this method is invoked, it stops to read the location of the user when the app is foreground or in the background. To stop the updates also when the app is terminated, you should call stopUpdates.
- 
+     
      # Notes: #
      This method stops to read the location only when the app is in foreground or in the background, **not** when the app is terminated.
      
      # Example: #
      \`\`\`
-        let streamLocation = StreamLocation()
-        streamLocation.startUpdatingLocations()
-        ...
-        streamLocation.stopUpdatingLocations()
+     let streamLocation = StreamLocation()
+     streamLocation.startUpdatingLocations()
+     ...
+     streamLocation.stopUpdatingLocations()
      \`\`\`
      */
     public func stopUpdatingLocations() {
         locationManager.stopUpdatingLocation()
     }
-
+    
     /**
      This method stops to register the location of the user when it is in foreground, background and terminated.
      
@@ -187,11 +175,11 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      
      # Example: #
      \`\`\`
-        let streamLocation = StreamLocation()
-        streamLocation.startUpdatingLocations()
-        ...
-        streamLocation.stopUpdates()
-    \`\`\`
+     let streamLocation = StreamLocation()
+     streamLocation.startUpdatingLocations()
+     ...
+     streamLocation.stopUpdates()
+     \`\`\`
      */
     public func stopUpdates() {
         stopUpdatingLocations()
@@ -200,11 +188,10 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
         for region in locationManager.monitoredRegions {
             locationManager.stopMonitoring(for: region)
         }
-        
     }
-
+    
     /**
-    This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when a new location is available. If there is a new location, this method publishes it in the stream.
+     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when a new location is available. If there is a new location, this method publishes it in the stream.
      
      # Notes: #
      This method shouldn't be invoked, it is automatically called by iOS.
@@ -223,7 +210,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
         }
     }
-
+    
     /**
      This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the locationManager fails.
      */
@@ -231,19 +218,15 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
         print(error.localizedDescription)
     }
     
+    /**
+     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called to check if a user is inside a certain region
+     */
     public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         let regions = manager.monitoredRegions
-
-        dispatchQueue.asyncAfter(deadline: .now() + updateDelay){ [self] in
-            logger.log("Checking region state")
-            logger.log("Monitored regions \(regions.count)")
-            locationManager.requestState(for: region)
-            
-            locationManager.requestLocation()
-            if let mLocation = locationManager.location {
-                subject.send(mLocation)
-                logger.log("Sending new location \(mLocation)")
-            }
-        }
+        logger.log("Checking region state")
+        logger.log("Monitored regions \(regions.count)")
+        locationManager.requestState(for: region)
+        
+        locationManager.startUpdatingLocation()
     }
 }

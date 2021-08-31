@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         if #available(iOS 13.0, *) {
 
             let publisher = stream.subject
-
+            try stream.setKilledAppUpdateDelay(updateDelay: 4)
             try stream.start()
             DispatchQueue.main.async {
                 self.cancellable = publisher.sink {
