@@ -48,25 +48,26 @@
 		364DC77E3AE0F2611E51E704410D17B4 /* Pods-ios-location-listener_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ios-location-listener_Tests.modulemap"; sourceTree = "<group>"; };
 		3A3B695CF92FAF32DD7A3FAC3B1B8DBA /* Pods-ios-location-listener_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-location-listener_Tests-dummy.m"; sourceTree = "<group>"; };
 		4940BDAE166C802B5EC766488E0A2AA8 /* Pods-ios-location-listener_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-location-listener_Tests-umbrella.h"; sourceTree = "<group>"; };
-		59A830CE5130AA7B48E8443FCF5DD030 /* Pods_ios_location_listener_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ios_location_listener_Tests.framework; path = "Pods-ios-location-listener_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		59A830CE5130AA7B48E8443FCF5DD030 /* Pods_ios_location_listener_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_location_listener_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BE7D4C115F4F92EE12D4EBFAF9FF9B /* Pods-ios-location-listener_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-location-listener_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		9C8340424CB96C147840FBEAAD7CE1F0 /* Pods-ios-location-listener_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ios-location-listener_Example-frameworks.sh"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A498AC267D875C97E635755137679428 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A498AC267D875C97E635755137679428 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A76E6128B7C2F03B8D800D100E54E75C /* ios-location-listener.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ios-location-listener.modulemap"; sourceTree = "<group>"; };
 		AEC79F4D0C89DCF606BC4CE193734F71 /* Pods-ios-location-listener_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ios-location-listener_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BEE4057A30C4300F845226E99A00B435 /* ios-location-listener.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ios-location-listener.release.xcconfig"; sourceTree = "<group>"; };
 		C062B667F53C2F8953AB495D8158AD7C /* Pods-ios-location-listener_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-location-listener_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C42EBBCBB60D89B39D3352B65B7508A1 /* ios_location_listener.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ios_location_listener.framework; path = "ios-location-listener.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42EBBCBB60D89B39D3352B65B7508A1 /* ios_location_listener.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ios_location_listener.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6949F6CD377F7BA50F98E57E8A3B712 /* Pods-ios-location-listener_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-location-listener_Example-dummy.m"; sourceTree = "<group>"; };
 		C9DE6F5E0963EAB2BD7789644AC3DA72 /* Pods-ios-location-listener_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-location-listener_Example-umbrella.h"; sourceTree = "<group>"; };
-		CBA31DA1DA51DE8311011DEE7B781FE3 /* Pods_ios_location_listener_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ios_location_listener_Example.framework; path = "Pods-ios-location-listener_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAE2A17826DD0372000A044C /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		CBA31DA1DA51DE8311011DEE7B781FE3 /* Pods_ios_location_listener_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_location_listener_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49CACF7F44C1A3057262594D518FAC0 /* Pods-ios-location-listener_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ios-location-listener_Example.modulemap"; sourceTree = "<group>"; };
-		DBA28E190B94F353B062A156D3FE0659 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		DBA28E190B94F353B062A156D3FE0659 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E74F8E2B1312E2BB04A218BF22B469B5 /* ios-location-listener-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ios-location-listener-prefix.pch"; sourceTree = "<group>"; };
 		E950B08786E96D2A2B3A33C4A5DC0583 /* ios-location-listener.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ios-location-listener.debug.xcconfig"; sourceTree = "<group>"; };
-		EAF8809E463D0C35B9E0EC2A22CD5238 /* ios-location-listener.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = "ios-location-listener.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		EAF8809E463D0C35B9E0EC2A22CD5238 /* ios-location-listener.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = "ios-location-listener.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F5F48D9FA2736DBA8D45AB451B7A17C7 /* Pods-ios-location-listener_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ios-location-listener_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FB4BF9ECBD15EEE4300FE0466B19242B /* Pods-ios-location-listener_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-location-listener_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FBC18D904F476515C6ECE6E5EA7BD3CE /* Pods-ios-location-listener_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-location-listener_Tests-Info.plist"; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				21A9A85A2A4A04DF089426727B48306D /* StreamLocation.swift */,
+				CAE2A17826DD0372000A044C /* Location.gpx */,
 				D162E55CCE0AC49CFEE9935A1A018CA6 /* Pod */,
 				731EFFBC28C2EDFE09A0A794D39B889F /* Support Files */,
 			);
@@ -653,8 +655,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
