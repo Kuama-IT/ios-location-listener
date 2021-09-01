@@ -67,6 +67,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     
     public override init(){
         super.init()
+        locationManager.delegate = self
         logger.log("Initialization")
     }
     
@@ -84,7 +85,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      1. This method is automatically called when a new StreamLocation object is created.
      */
     private func setupLocationManager() throws {
-        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.allowsBackgroundLocationUpdates = true
@@ -207,7 +207,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
             let newRegion = CLCircularRegion.init(center: newLocationCoordinate, radius: Constants.Numbers.minRadius, identifier: "\(mLocation)")
             locationManager.startMonitoring(for: newRegion)
             locationManager.requestState(for: newRegion)
-            locationManager.stopUpdatingLocation()
         }
     }
     
@@ -226,7 +225,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
         logger.log("Checking region state")
         logger.log("Monitored regions \(regions.count)")
         locationManager.requestState(for: region)
-        
+    
         locationManager.startUpdatingLocation()
     }
 }

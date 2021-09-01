@@ -20,33 +20,33 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        do {
-            try listenToPosition()
-        } catch {
-        }
     }
-
+    
+    @IBAction func startButton(_ sender: Any){
+        if #available(iOS 13.0, *) {
+            
+            let publisher = stream.subject
+            do {
+                try stream.start()
+                DispatchQueue.main.async {
+                    self.cancellable = publisher.sink {
+                        s in
+                        self.logger.log("\(s.coordinate.latitude)-\(s.coordinate.longitude)")
+                    }
+                }
+            }catch {}
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
 
     }
-
-    private func listenToPosition() throws {
-        if #available(iOS 13.0, *) {
-
-            let publisher = stream.subject
-            try stream.setKilledAppUpdateDelay(updateDelay: 4)
-            try stream.start()
-            DispatchQueue.main.async {
-                self.cancellable = publisher.sink {
-                    s in
-                    self.logger.log("\(s.coordinate.latitude)-\(s.coordinate.longitude)")
-                }
-            }
-
-        }
-
+    @IBAction func stopButton(_ sender: Any) {
+        stream.stopUpdates()
     }
+    
 }
 
