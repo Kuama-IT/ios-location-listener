@@ -1,3 +1,8 @@
+# Version 0.3.1
+> 2021-09-01
+- Added start and stop button to example app.
+- Moved definition delegate as self to the init method due to possible reinitialization of the app.
+
 # Version 0.3.0
 > 2021-08-31
 - Removed Notifications
