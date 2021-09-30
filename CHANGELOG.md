@@ -1,3 +1,7 @@
+# Version 0.3.2
+> 2021-09-30
+- Removed logging
+
 # Version 0.3.1
 > 2021-09-01
 - Added start and stop button to example app.
