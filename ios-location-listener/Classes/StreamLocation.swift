@@ -62,13 +62,9 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     public let subject = PassthroughSubject<CLLocation, Never>()
     private let locationManager = CLLocationManager()
     
-    private let logger = Logger(subsystem: "net.kuama.ios-bl-location-listener", category: "kuama")
-    
-    
     public override init(){
         super.init()
         locationManager.delegate = self
-        logger.log("Initialization")
     }
     
     public func start() throws {
@@ -199,7 +195,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let mLocation = locations.last {
             subject.send(mLocation)
-            logger.log("New Location \(mLocation)")
             
             // start to monitor a new region centered on where the user currently is
             // and request state for the current region (in or out) that will call didDetermineState 
@@ -222,8 +217,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      */
     public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         let regions = manager.monitoredRegions
-        logger.log("Checking region state")
-        logger.log("Monitored regions \(regions.count)")
         locationManager.requestState(for: region)
     
         locationManager.startUpdatingLocation()
