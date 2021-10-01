@@ -27,9 +27,8 @@ class ViewController: UIViewController {
             do {
                 try stream.start()
                 DispatchQueue.main.async {
-                    self.cancellable = publisher.sink {
-                        s in
-                        self.logger.log("\(s.coordinate.latitude)-\(s.coordinate.longitude)")
+                    self.cancellable = publisher.sink { location in
+                        self.logger.log("\(location.coordinate.latitude)-\(location.coordinate.longitude)")
                     }
                 }
             } catch {}

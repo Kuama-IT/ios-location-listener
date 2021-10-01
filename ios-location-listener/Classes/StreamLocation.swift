@@ -215,9 +215,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called to check if a user is inside a certain region
      */
     public func locationManager(_ manager: CLLocationManager, didDetermineState _: CLRegionState, for region: CLRegion) {
-        let regions = manager.monitoredRegions
         locationManager.requestState(for: region)
-
         locationManager.startUpdatingLocation()
     }
 }
