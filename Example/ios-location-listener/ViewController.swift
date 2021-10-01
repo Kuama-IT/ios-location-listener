@@ -6,25 +6,23 @@
 //  Copyright (c) 2021 cc51a8303047eb6bf025205b97c4fbcf51205233. All rights reserved.
 //
 
-import UIKit
 import Combine
 import ios_location_listener
 import os.log
+import UIKit
 
 class ViewController: UIViewController {
-
     let logger = Logger(subsystem: "net.kuama.ios-location-listener", category: "kuama")
     let stream = StreamLocation()
-    var cancellable: AnyCancellable? = nil
+    var cancellable: AnyCancellable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    @IBAction func startButton(_ sender: Any){
+
+    @IBAction func startButton(_: Any) {
         if #available(iOS 13.0, *) {
-            
             let publisher = stream.subject
             do {
                 try stream.start()
@@ -34,19 +32,16 @@ class ViewController: UIViewController {
                         self.logger.log("\(s.coordinate.latitude)-\(s.coordinate.longitude)")
                     }
                 }
-            }catch {}
+            } catch {}
         }
-        
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-
     }
-    @IBAction func stopButton(_ sender: Any) {
+
+    @IBAction func stopButton(_: Any) {
         stream.stopUpdates()
     }
-    
 }
-
