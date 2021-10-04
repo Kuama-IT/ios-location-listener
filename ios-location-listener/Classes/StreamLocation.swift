@@ -8,7 +8,6 @@ import Foundation
 import UIKit
 import CoreLocation
 import Combine
-import os.log
 
 /// Enum for the accuracy of the location updates
 public enum Accuracy {
@@ -20,24 +19,6 @@ public enum Accuracy {
 
 enum AuthorizationError: Error {
     case missingPermission(String)
-}
-
-enum InvalidUpdateDelayError: Error {
-    case negativeDelay(String)
-}
-
-struct Constants {
-    struct Numbers {
-        static let minRadius = 100.0 // in meters
-        static let updateDelay = 10.0 // in seconds
-    }
-    struct ErrorDescription {
-        static let negativeDelayError = "The provided delay is negative so invalid: "
-    }
-    struct Names {
-        static let bkgQueueLabel = "BKG"
-        static let killedUpdateDelayKey = "killedUpdateDelayKey"
-    }
 }
 
 /**
@@ -140,7 +121,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      \`\`\`
      */
     public func startUpdatingLocations() {
-        locationManager.startMonitoringSignificantLocationChanges()
         locationManager.startUpdatingLocation()
     }
     
@@ -163,7 +143,7 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     }
     
     /**
-     This method stops to register the location of the user when it is in foreground, background and terminated.
+     This method stops to register the location of the user when it is in foreground and background.
      
      # Notes: #
      1.This method completely stops the location updates.
@@ -179,11 +159,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      */
     public func stopUpdates() {
         stopUpdatingLocations()
-        locationManager.stopMonitoringSignificantLocationChanges()
-        
-        for region in locationManager.monitoredRegions {
-            locationManager.stopMonitoring(for: region)
-        }
     }
     
     /**
@@ -195,13 +170,6 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let mLocation = locations.last {
             subject.send(mLocation)
-            
-            // start to monitor a new region centered on where the user currently is
-            // and request state for the current region (in or out) that will call didDetermineState 
-            let newLocationCoordinate = CLLocationCoordinate2D.init(latitude: mLocation.coordinate.latitude, longitude: mLocation.coordinate.longitude)
-            let newRegion = CLCircularRegion.init(center: newLocationCoordinate, radius: Constants.Numbers.minRadius, identifier: "\(mLocation)")
-            locationManager.startMonitoring(for: newRegion)
-            locationManager.requestState(for: newRegion)
         }
     }
     
@@ -210,15 +178,5 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      */
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-    }
-    
-    /**
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called to check if a user is inside a certain region
-     */
-    public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        let regions = manager.monitoredRegions
-        locationManager.requestState(for: region)
-    
-        locationManager.startUpdatingLocation()
     }
 }
