@@ -1,3 +1,7 @@
+# Version 0.4.0
+> 2021-10-04
+- Removed support while the app is closed
+
 # Version 0.3.2
 > 2021-09-30
 - Removed logging
