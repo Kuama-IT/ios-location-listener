@@ -13,7 +13,7 @@ import UIKit
 
 class ViewController: UIViewController {
     let logger = Logger(subsystem: "net.kuama.ios-location-listener", category: "kuama")
-    let stream = StreamLocation()
+    var stream: StreamLocation?
     var cancellable: AnyCancellable?
 
     override func viewDidLoad() {
@@ -23,16 +23,25 @@ class ViewController: UIViewController {
 
     @IBAction func startButton(_: Any) {
         if #available(iOS 13.0, *) {
-            let publisher = stream.subject
             do {
-                try stream.start()
-                DispatchQueue.main.async {
-                    self.cancellable = publisher.sink { location in
-                        self.logger.log("\(location.coordinate.latitude)-\(location.coordinate.longitude)")
-                    }
-                }
+                stream = try StreamLocation()
             } catch {}
+            let publisher = stream?.subject
+            stream?.start()
+            DispatchQueue.main.async {
+                self.cancellable = publisher?.sink { location in
+                    self.logger.log("\(location.coordinate.latitude)-\(location.coordinate.longitude)")
+                }
+            }
         }
+    }
+
+    @IBAction func startForeground(_: UIButton) {
+        stream?.startForeground()
+    }
+
+    @IBAction func startBackground(_: UIButton) {
+        stream?.startBackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +50,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func stopButton(_: Any) {
-        stream.stopUpdates()
+        stream?.stopUpdates()
     }
 }

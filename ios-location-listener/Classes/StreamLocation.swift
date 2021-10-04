@@ -10,43 +10,11 @@ import Foundation
 import os.log
 import UIKit
 
-/// Enum for the accuracy of the location updates
-public enum Accuracy {
-    case foot
-    case car
-    case bike
-}
-
-enum AuthorizationError: Error {
-    case missingPermission(String)
-}
-
-enum InvalidUpdateDelayError: Error {
-    case negativeDelay(String)
-}
-
-enum Constants {
-    enum Numbers {
-        static let minRadius = 100.0 // in meters
-        static let updateDelay = 10.0 // in seconds
-    }
-    
-    enum ErrorDescription {
-        static let negativeDelayError = "The provided delay is negative so invalid: "
-    }
-    
-    enum Names {
-        static let bkgQueueLabel = "BKG"
-        static let killedUpdateDelayKey = "killedUpdateDelayKey"
-    }
-}
-
-
 /**
  This class reads the location of the user and shares it through Combine's PassthroughSubject.
  Once the location is started, It is possible to receive the updates calling the sink method on the subject.
  It implements CLLocationManagerDelegate protocol.
- When the app gets killed or suspended it reads the location every 60 seconds minimum.
+ When the app gets killed or suspended it reads the location every 200mt. or if still, every 5 min approx.
  
  # Example: #
  \`\`\`
@@ -59,18 +27,64 @@ enum Constants {
  \`\`\`
  */
 @available(iOS 14.0, *)
-public class StreamLocation: NSObject, CLLocationManagerDelegate {
+public class StreamLocation {
     public let subject = PassthroughSubject<CLLocation, Never>()
-    private let locationManager = CLLocationManager()
+    private let foregroundLocationManager = CLLocationManager()
+    private let backgroundLocationManager = CLLocationManager()
+    
+    private var backgroundDelegate: BackgroundLocationManagerDelegate
+    private var foregroundDelegate: ForegroundLocationManagerDelegate
+    
+    
 
-    override public init() {
-        super.init()
-        locationManager.delegate = self
+    public init() throws {
+        backgroundDelegate = BackgroundLocationManagerDelegate.init(locationManager: backgroundLocationManager, subject: subject)
+        foregroundDelegate = ForegroundLocationManagerDelegate.init(locationManager: foregroundLocationManager, subject: subject)
+        try setupLocationManager(backgroundLocationManager)
+        try setupLocationManager(foregroundLocationManager)
     }
     
-    public func start() throws {
-        try setupLocationManager()
-        startUpdatingLocations()
+    
+    /// It starts for the first time the foreground delegate
+    /// Since it is the first time, it won't stop the background delegate
+    public func start() {
+        foregroundDelegate.start()
+    }
+    
+    /**
+     This method stops to register the location of the user when it is in foreground, background and terminated.
+     
+     # Notes: #
+     1.This method completely stops the location updates.
+     2.This method **must** be invoked when the app should stop, otherwise it will continue to update locations.
+     
+     # Example: #
+     \`\`\`
+     let streamLocation = StreamLocation()
+     streamLocation.start()
+     ...
+     streamLocation.stopUpdates()
+     \`\`\`
+     */
+    public func stopUpdates() {
+        foregroundDelegate.stop()
+        backgroundDelegate.stop()
+    }
+    
+    /// Starts the background manager and stops the foreground manager
+    /// It will switch method used to retrive the location
+    public func startBackground() {
+        foregroundDelegate.stop()
+        if let lastKnownLocation = foregroundLocationManager.location {
+            backgroundDelegate.startMonitoring(lastKnownLocation)
+        }
+    }
+    
+    /// Starts the foreground manager and stops the background manager
+    /// Call this method when the app is coming back from being closed/killed
+    public func startForeground() {
+        backgroundDelegate.stop()
+        foregroundDelegate.start()
     }
 
     /**
@@ -80,8 +94,9 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      
      # Notes: #
      1. This method is automatically called when a new StreamLocation object is created.
+     - Parameter locationManager: the location manager to setup
      */
-    private func setupLocationManager() throws {
+    private func setupLocationManager(_ locationManager: CLLocationManager) throws {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.allowsBackgroundLocationUpdates = true
@@ -108,11 +123,12 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
     /**
      This method takes a value for accuracy and set the correspondant value for the location updates.
      
-     - parameters
-     -accuracy: The accuracy you expect from the location updates.
+     - Parameters:
+     - accuracy: The accuracy you expect from the location updates.
      # Notes: #
      1.Parameter must be a **Accuracy** type.
      2. If this method is not called, the accuracy is by default set to Accuracy.foot.
+     - foreground: true if this accuracy setting is meant to be for the foreground manager
      
      # Example: #
      
@@ -121,105 +137,27 @@ public class StreamLocation: NSObject, CLLocationManagerDelegate {
      streamLocation.setAccuracy(Accuracy.foot)
      \`\`\`
      */
-    public func setAccuracy(_ accuracy: Accuracy) {
+    public func setAccuracy(_ accuracy: Accuracy, foreground: Bool) {
         switch accuracy {
         case .bike, .foot:
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            if foreground {
+                foregroundLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+            } else {
+                backgroundLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+            }
         case .car:
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            if foreground {
+                foregroundLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            } else {
+                backgroundLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            }
         }
     }
     
-    /**
-     When this method is invoked, it starts to read the location of the user.
-     
-     # Example: #
-     \`\`\`
-     let streamLocation = StreamLocation()
-     streamLocation.startUpdatingLocations()
-     \`\`\`
-     */
-    public func startUpdatingLocations() {
-        locationManager.startMonitoringSignificantLocationChanges()
-        locationManager.startUpdatingLocation()
-    }
     
-    /**
-     When this method is invoked, it stops to read the location of the user when the app is foreground or in the background. To stop the updates also when the app is terminated, you should call stopUpdates.
-     
-     # Notes: #
-     This method stops to read the location only when the app is in foreground or in the background, **not** when the app is terminated.
-     
-     # Example: #
-     \`\`\`
-     let streamLocation = StreamLocation()
-     streamLocation.startUpdatingLocations()
-     ...
-     streamLocation.stopUpdatingLocations()
-     \`\`\`
-     */
-    public func stopUpdatingLocations() {
-        locationManager.stopUpdatingLocation()
-    }
     
-    /**
-     This method stops to register the location of the user when it is in foreground, background and terminated.
-     
-     # Notes: #
-     1.This method completely stops the location updates.
-     2.This method **must** be invoked when the app should stop, otherwise it will continue to update locations.
-     
-     # Example: #
-     \`\`\`
-     let streamLocation = StreamLocation()
-     streamLocation.startUpdatingLocations()
-     ...
-     streamLocation.stopUpdates()
-     \`\`\`
-     */
-    public func stopUpdates() {
-        stopUpdatingLocations()
-        locationManager.stopMonitoringSignificantLocationChanges()
-        
-        for region in locationManager.monitoredRegions {
-            locationManager.stopMonitoring(for: region)
-        }
-    }
     
-    /**
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when a new location is available. If there is a new location, this method publishes it in the stream.
-     
-     # Notes: #
-     This method shouldn't be invoked, it is automatically called by iOS.
-     */
-    public func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let mLocation = locations.last {
-            subject.send(mLocation)
-            
-            // start to monitor a new region centered on where the user currently is
-            // and request state for the current region (in or out) that will call didDetermineState
-            let newLocationCoordinate = CLLocationCoordinate2D(latitude: mLocation.coordinate.latitude, longitude: mLocation.coordinate.longitude)
-            let newRegion = CLCircularRegion(center: newLocationCoordinate, radius: Constants.Numbers.minRadius, identifier: "\(mLocation)")
-            locationManager.startMonitoring(for: newRegion)
-            locationManager.requestState(for: newRegion)
-        }
-    }
+
     
-    /**
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called when the locationManager fails.
-     */
-    public func locationManager(_: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-    
-    /**
-     This method is inherited from the CLLocationManagerDelegate protocol and it is automatically called to check if a user is inside a certain region
-     */
-    public func locationManager(_ manager: CLLocationManager, didDetermineState _: CLRegionState, for region: CLRegion) {
-        locationManager.requestState(for: region)
-        manager.requestLocation()
-        if let location = manager.location {
-            subject.send(location)
-        }
-    }
+ 
 }
