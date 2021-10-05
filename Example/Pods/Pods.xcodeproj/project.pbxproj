@@ -7,20 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32153C5200CA2FEAB1FD75A4F4FDD31E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		3CF1EC1C449C9CCA0FD4DF8A277FE716 /* ios-location-listener-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6BF9289292590FFACD12FC1843BC2 /* ios-location-listener-dummy.m */; };
-		4E25DF643865A665919095514B6218FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		78461887E08845D749BAE00D145D6D86 /* StreamLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A9A85A2A4A04DF089426727B48306D /* StreamLocation.swift */; };
-		7C0AB39AB4642C26721AB8691FC5C988 /* ios-location-listener-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E642F096DC06689E3CD966C5FCBED6B /* ios-location-listener-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7EDCCB7754FCFF30F6A313BDAA8EC24C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		0EBEB0DEF40A40C9FF855D667BAB40D7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9CC0D1D00619FAD71F985441362EBE /* UserNotifications.framework */; };
+		32153C5200CA2FEAB1FD75A4F4FDD31E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1800761D737BFDFCBAFDF44B1543FC36 /* Foundation.framework */; };
+		3A67E5118AC37964C159D6B0FD1418F7 /* Combine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B003E573FCA46D129463213F89832437 /* Combine.framework */; };
+		4E25DF643865A665919095514B6218FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1800761D737BFDFCBAFDF44B1543FC36 /* Foundation.framework */; };
+		77D8FDD41D0320F8096960A08FA2B69D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1800761D737BFDFCBAFDF44B1543FC36 /* Foundation.framework */; };
+		8C7E3C9ADFD1AF345909895DD8BAE14E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CC57620F7FAB9860C4B9EF61F6DC828 /* UIKit.framework */; };
+		9741817F55C41D2D5A38AC5E1E5F8A53 /* ios-location-listener-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D6BF9289292590FFACD12FC1843BC2 /* ios-location-listener-dummy.m */; };
 		A1E2D01A2CD626208E94809D5788609B /* Pods-ios-location-listener_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C6949F6CD377F7BA50F98E57E8A3B712 /* Pods-ios-location-listener_Example-dummy.m */; };
 		AAE03FD79643F3C40F815E04CA19E160 /* Pods-ios-location-listener_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4940BDAE166C802B5EC766488E0A2AA8 /* Pods-ios-location-listener_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C0373A80239AC9BA667D1E7C3A982053 /* ios-location-listener-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E642F096DC06689E3CD966C5FCBED6B /* ios-location-listener-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DD3D5D0DDCA653512C92696BEC8CB751 /* Pods-ios-location-listener_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3B695CF92FAF32DD7A3FAC3B1B8DBA /* Pods-ios-location-listener_Tests-dummy.m */; };
+		E8DF0B2B78CECEDCEE607F3139849393 /* StreamLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A9A85A2A4A04DF089426727B48306D /* StreamLocation.swift */; };
 		EF638BB3B57A024F9A4292EC1F55FB56 /* Pods-ios-location-listener_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C9DE6F5E0963EAB2BD7789644AC3DA72 /* Pods-ios-location-listener_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		074373C3FB24CB5C910B3FFCAA301EEA /* PBXContainerItemProxy */ = {
+		124420D780AB40E0789D6B3A766A8BA2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -40,6 +43,8 @@
 		0A2D012BE6DB349CCD91C249DE106778 /* Pods-ios-location-listener_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-location-listener_Example.release.xcconfig"; sourceTree = "<group>"; };
 		0E642F096DC06689E3CD966C5FCBED6B /* ios-location-listener-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ios-location-listener-umbrella.h"; sourceTree = "<group>"; };
 		12D4C80286525B668764FED391C94C3B /* ios-location-listener-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ios-location-listener-Info.plist"; sourceTree = "<group>"; };
+		1800761D737BFDFCBAFDF44B1543FC36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		1CC57620F7FAB9860C4B9EF61F6DC828 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		21A9A85A2A4A04DF089426727B48306D /* StreamLocation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StreamLocation.swift; path = "ios-location-listener/Classes/StreamLocation.swift"; sourceTree = "<group>"; };
 		23D3FD3E0BFF233299E36C06CDD87F28 /* Pods-ios-location-listener_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-location-listener_Example-Info.plist"; sourceTree = "<group>"; };
 		27D6BF9289292590FFACD12FC1843BC2 /* ios-location-listener-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ios-location-listener-dummy.m"; sourceTree = "<group>"; };
@@ -48,37 +53,40 @@
 		364DC77E3AE0F2611E51E704410D17B4 /* Pods-ios-location-listener_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ios-location-listener_Tests.modulemap"; sourceTree = "<group>"; };
 		3A3B695CF92FAF32DD7A3FAC3B1B8DBA /* Pods-ios-location-listener_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-location-listener_Tests-dummy.m"; sourceTree = "<group>"; };
 		4940BDAE166C802B5EC766488E0A2AA8 /* Pods-ios-location-listener_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-location-listener_Tests-umbrella.h"; sourceTree = "<group>"; };
-		59A830CE5130AA7B48E8443FCF5DD030 /* Pods_ios_location_listener_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_location_listener_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59A830CE5130AA7B48E8443FCF5DD030 /* Pods_ios_location_listener_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ios_location_listener_Tests.framework; path = "Pods-ios-location-listener_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BE7D4C115F4F92EE12D4EBFAF9FF9B /* Pods-ios-location-listener_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-location-listener_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		9C8340424CB96C147840FBEAAD7CE1F0 /* Pods-ios-location-listener_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ios-location-listener_Example-frameworks.sh"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A498AC267D875C97E635755137679428 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A498AC267D875C97E635755137679428 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		A76E6128B7C2F03B8D800D100E54E75C /* ios-location-listener.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ios-location-listener.modulemap"; sourceTree = "<group>"; };
 		AEC79F4D0C89DCF606BC4CE193734F71 /* Pods-ios-location-listener_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ios-location-listener_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B003E573FCA46D129463213F89832437 /* Combine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Combine.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Combine.framework; sourceTree = DEVELOPER_DIR; };
 		BEE4057A30C4300F845226E99A00B435 /* ios-location-listener.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ios-location-listener.release.xcconfig"; sourceTree = "<group>"; };
+		BF9CC0D1D00619FAD71F985441362EBE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UserNotifications.framework; sourceTree = DEVELOPER_DIR; };
 		C062B667F53C2F8953AB495D8158AD7C /* Pods-ios-location-listener_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-location-listener_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C42EBBCBB60D89B39D3352B65B7508A1 /* ios_location_listener.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ios_location_listener.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42EBBCBB60D89B39D3352B65B7508A1 /* ios_location_listener.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ios_location_listener.framework; path = "ios-location-listener.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6949F6CD377F7BA50F98E57E8A3B712 /* Pods-ios-location-listener_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-location-listener_Example-dummy.m"; sourceTree = "<group>"; };
 		C9DE6F5E0963EAB2BD7789644AC3DA72 /* Pods-ios-location-listener_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-location-listener_Example-umbrella.h"; sourceTree = "<group>"; };
-		CAE2A17826DD0372000A044C /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
-		CBA31DA1DA51DE8311011DEE7B781FE3 /* Pods_ios_location_listener_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_location_listener_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA31DA1DA51DE8311011DEE7B781FE3 /* Pods_ios_location_listener_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ios_location_listener_Example.framework; path = "Pods-ios-location-listener_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49CACF7F44C1A3057262594D518FAC0 /* Pods-ios-location-listener_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ios-location-listener_Example.modulemap"; sourceTree = "<group>"; };
-		DBA28E190B94F353B062A156D3FE0659 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DBA28E190B94F353B062A156D3FE0659 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		E74F8E2B1312E2BB04A218BF22B469B5 /* ios-location-listener-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ios-location-listener-prefix.pch"; sourceTree = "<group>"; };
 		E950B08786E96D2A2B3A33C4A5DC0583 /* ios-location-listener.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ios-location-listener.debug.xcconfig"; sourceTree = "<group>"; };
-		EAF8809E463D0C35B9E0EC2A22CD5238 /* ios-location-listener.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = "ios-location-listener.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		EAF8809E463D0C35B9E0EC2A22CD5238 /* ios-location-listener.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = "ios-location-listener.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F5F48D9FA2736DBA8D45AB451B7A17C7 /* Pods-ios-location-listener_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ios-location-listener_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FB4BF9ECBD15EEE4300FE0466B19242B /* Pods-ios-location-listener_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-location-listener_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FBC18D904F476515C6ECE6E5EA7BD3CE /* Pods-ios-location-listener_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-location-listener_Tests-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		011A6B9AC92C4BFF07DDBE8A28483CDE /* Frameworks */ = {
+		4D6624CE3C2A2826B36FB2AB2421343C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EDCCB7754FCFF30F6A313BDAA8EC24C /* Foundation.framework in Frameworks */,
+				3A67E5118AC37964C159D6B0FD1418F7 /* Combine.framework in Frameworks */,
+				77D8FDD41D0320F8096960A08FA2B69D /* Foundation.framework in Frameworks */,
+				8C7E3C9ADFD1AF345909895DD8BAE14E /* UIKit.framework in Frameworks */,
+				0EBEB0DEF40A40C9FF855D667BAB40D7 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,12 +113,22 @@
 			isa = PBXGroup;
 			children = (
 				21A9A85A2A4A04DF089426727B48306D /* StreamLocation.swift */,
-				CAE2A17826DD0372000A044C /* Location.gpx */,
 				D162E55CCE0AC49CFEE9935A1A018CA6 /* Pod */,
 				731EFFBC28C2EDFE09A0A794D39B889F /* Support Files */,
 			);
 			name = "ios-location-listener";
 			path = ../..;
+			sourceTree = "<group>";
+		};
+		205A5D8C0954AC08ED1004111B29BDA9 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B003E573FCA46D129463213F89832437 /* Combine.framework */,
+				1800761D737BFDFCBAFDF44B1543FC36 /* Foundation.framework */,
+				1CC57620F7FAB9860C4B9EF61F6DC828 /* UIKit.framework */,
+				BF9CC0D1D00619FAD71F985441362EBE /* UserNotifications.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		2AA0A7892097F9D1FADE00D126A4EBFE /* Pods-ios-location-listener_Tests */ = {
@@ -146,14 +164,6 @@
 			path = "Target Support Files/Pods-ios-location-listener_Example";
 			sourceTree = "<group>";
 		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		731EFFBC28C2EDFE09A0A794D39B889F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,12 +188,20 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				205A5D8C0954AC08ED1004111B29BDA9 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				EC93918915EB8F67F7EA2734A8751C21 /* Development Pods */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */,
 				DED48FE7837B227BBC7DEECF04E98C32 /* Products */,
 				B985353ADED8ACCDF76DFE3801FC7FAC /* Targets Support Files */,
 			);
@@ -197,14 +215,6 @@
 				A498AC267D875C97E635755137679428 /* README.md */,
 			);
 			name = Pod;
-			sourceTree = "<group>";
-		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DED48FE7837B227BBC7DEECF04E98C32 /* Products */ = {
@@ -228,19 +238,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4B789F7616F90D5A13095EE3CA94DA27 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0373A80239AC9BA667D1E7C3A982053 /* ios-location-listener-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56AA9E274FBC5C79C8C624A22CC769D3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				AAE03FD79643F3C40F815E04CA19E160 /* Pods-ios-location-listener_Tests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A9E74DD77388AF4871E9A9E8A58EA74 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7C0AB39AB4642C26721AB8691FC5C988 /* ios-location-listener-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +277,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				4DC142FDD558348BB6A361334BD40126 /* PBXTargetDependency */,
+				358A0A5F05DA6070ABEE86841A9C6B0D /* PBXTargetDependency */,
 			);
 			name = "Pods-ios-location-listener_Tests";
 			productName = "Pods-ios-location-listener_Tests";
@@ -295,12 +305,12 @@
 		};
 		F51087CF4F2275B9A6D000306DAEEF66 /* ios-location-listener */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2FC21DA396713CDE5B67D9ADA9E4F4AA /* Build configuration list for PBXNativeTarget "ios-location-listener" */;
+			buildConfigurationList = 0DB46A7B171FA3BD7FF7D1050D8FC214 /* Build configuration list for PBXNativeTarget "ios-location-listener" */;
 			buildPhases = (
-				9A9E74DD77388AF4871E9A9E8A58EA74 /* Headers */,
-				243A2A69735B36478E4B6D2B9C1403AD /* Sources */,
-				011A6B9AC92C4BFF07DDBE8A28483CDE /* Frameworks */,
-				B2425A13F7B8D8249B2E28EA7E261C07 /* Resources */,
+				4B789F7616F90D5A13095EE3CA94DA27 /* Headers */,
+				082C4F46B781F339D9F9F4B96C03C6C0 /* Sources */,
+				4D6624CE3C2A2826B36FB2AB2421343C /* Frameworks */,
+				AEC4AEE09AB95E46896245E820F5152D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -348,7 +358,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B2425A13F7B8D8249B2E28EA7E261C07 /* Resources */ = {
+		AEC4AEE09AB95E46896245E820F5152D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -365,12 +375,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		243A2A69735B36478E4B6D2B9C1403AD /* Sources */ = {
+		082C4F46B781F339D9F9F4B96C03C6C0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CF1EC1C449C9CCA0FD4DF8A277FE716 /* ios-location-listener-dummy.m in Sources */,
-				78461887E08845D749BAE00D145D6D86 /* StreamLocation.swift in Sources */,
+				9741817F55C41D2D5A38AC5E1E5F8A53 /* ios-location-listener-dummy.m in Sources */,
+				E8DF0B2B78CECEDCEE607F3139849393 /* StreamLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,11 +403,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4DC142FDD558348BB6A361334BD40126 /* PBXTargetDependency */ = {
+		358A0A5F05DA6070ABEE86841A9C6B0D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-ios-location-listener_Example";
 			target = C7DACD2AA3FBC019EE60E58A38242E57 /* Pods-ios-location-listener_Example */;
-			targetProxy = 074373C3FB24CB5C910B3FFCAA301EEA /* PBXContainerItemProxy */;
+			targetProxy = 124420D780AB40E0789D6B3A766A8BA2 /* PBXContainerItemProxy */;
 		};
 		8722FD0B733BB185E24683F5DC223D69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -408,7 +418,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */ = {
+		1F0A13F5EB90905C5DA70E561F799F29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C062B667F53C2F8953AB495D8158AD7C /* Pods-ios-location-listener_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ios-location-listener_Tests/Pods-ios-location-listener_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ios-location-listener_Tests/Pods-ios-location-listener_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4BC7450F9457737EE3E637BA155B56F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -461,7 +506,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -474,43 +519,13 @@
 			};
 			name = Debug;
 		};
-		7670212753BD36EF25EBA350AAFFE04B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B363012116AB84096640F2BF1170D10 /* Pods-ios-location-listener_Example.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		9046F4F7E5848C57D8886B93D2C878E7 /* Release */ = {
+		4DFD8F4BFA28912FA6BFAD7FAD67EDBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A2D012BE6DB349CCD91C249DE106778 /* Pods-ios-location-listener_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -521,7 +536,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example.modulemap";
@@ -539,68 +554,7 @@
 			};
 			name = Release;
 		};
-		B4E5C236EFF20647A690661F20EE3B7E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEE4057A30C4300F845226E99A00B435 /* ios-location-listener.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ios-location-listener/ios-location-listener-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ios-location-listener/ios-location-listener-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ios-location-listener/ios-location-listener.modulemap";
-				PRODUCT_MODULE_NAME = ios_location_listener;
-				PRODUCT_NAME = ios_location_listener;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		B9376C93C430B927288F5357A5EE20AF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E950B08786E96D2A2B3A33C4A5DC0583 /* ios-location-listener.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ios-location-listener/ios-location-listener-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ios-location-listener/ios-location-listener-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ios-location-listener/ios-location-listener.modulemap";
-				PRODUCT_MODULE_NAME = ios_location_listener;
-				PRODUCT_NAME = ios_location_listener;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */ = {
+		8B5A46FF8D3C1289CDEE3BAFACABCD2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -650,22 +604,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		E360B9BD31CD312C032FC333F181F8C3 /* Debug */ = {
+		98402E248B28AF55C52692E35752881E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FB4BF9ECBD15EEE4300FE0466B19242B /* Pods-ios-location-listener_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -676,7 +633,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ios-location-listener_Tests/Pods-ios-location-listener_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ios-location-listener_Tests/Pods-ios-location-listener_Tests.modulemap";
@@ -693,11 +650,12 @@
 			};
 			name = Debug;
 		};
-		EBADA22B1B936329F41A7B1E82BA8CD6 /* Release */ = {
+		9EB97E146FC51CE09FF22A7A3561D368 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C062B667F53C2F8953AB495D8158AD7C /* Pods-ios-location-listener_Tests.release.xcconfig */;
+			baseConfigurationReference = E950B08786E96D2A2B3A33C4A5DC0583 /* ios-location-listener.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -706,12 +664,78 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ios-location-listener_Tests/Pods-ios-location-listener_Tests-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/ios-location-listener/ios-location-listener-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ios-location-listener/ios-location-listener-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ios-location-listener/ios-location-listener.modulemap";
+				PRODUCT_MODULE_NAME = ios_location_listener;
+				PRODUCT_NAME = ios_location_listener;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AF152D966818B49B23B5B4358DA9BE49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEE4057A30C4300F845226E99A00B435 /* ios-location-listener.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ios-location-listener/ios-location-listener-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ios-location-listener/ios-location-listener-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ios-location-listener/ios-location-listener.modulemap";
+				PRODUCT_MODULE_NAME = ios_location_listener;
+				PRODUCT_NAME = ios_location_listener;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F22E7139451E003B9151E07526BF2AB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B363012116AB84096640F2BF1170D10 /* Pods-ios-location-listener_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ios-location-listener_Tests/Pods-ios-location-listener_Tests.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -720,20 +744,19 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FC21DA396713CDE5B67D9ADA9E4F4AA /* Build configuration list for PBXNativeTarget "ios-location-listener" */ = {
+		0DB46A7B171FA3BD7FF7D1050D8FC214 /* Build configuration list for PBXNativeTarget "ios-location-listener" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B9376C93C430B927288F5357A5EE20AF /* Debug */,
-				B4E5C236EFF20647A690661F20EE3B7E /* Release */,
+				9EB97E146FC51CE09FF22A7A3561D368 /* Debug */,
+				AF152D966818B49B23B5B4358DA9BE49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -741,8 +764,8 @@
 		35820890D6AE4190B54760CBDD4153EB /* Build configuration list for PBXNativeTarget "Pods-ios-location-listener_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7670212753BD36EF25EBA350AAFFE04B /* Debug */,
-				9046F4F7E5848C57D8886B93D2C878E7 /* Release */,
+				F22E7139451E003B9151E07526BF2AB7 /* Debug */,
+				4DFD8F4BFA28912FA6BFAD7FAD67EDBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -750,8 +773,8 @@
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */,
-				CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */,
+				4BC7450F9457737EE3E637BA155B56F7 /* Debug */,
+				8B5A46FF8D3C1289CDEE3BAFACABCD2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -759,8 +782,8 @@
 		7E6180F9AA5242AFF0C3EFC5E52CCEF6 /* Build configuration list for PBXNativeTarget "Pods-ios-location-listener_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E360B9BD31CD312C032FC333F181F8C3 /* Debug */,
-				EBADA22B1B936329F41A7B1E82BA8CD6 /* Release */,
+				98402E248B28AF55C52692E35752881E /* Debug */,
+				1F0A13F5EB90905C5DA70E561F799F29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
