@@ -1,3 +1,7 @@
+# Version 0.4.1
+> 2021-10-05
+- Updated podspec file with new version.
+
 # Version 0.4.0
 > 2021-10-04
 - Removed support while the app is closed
