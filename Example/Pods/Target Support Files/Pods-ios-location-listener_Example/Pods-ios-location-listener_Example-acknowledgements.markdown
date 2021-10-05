@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## ios-location-listener
 
-Copyright (c) 2021 cc51a8303047eb6bf025205b97c4fbcf51205233 <daniele@kuama.net>
+Copyright (c) 2021 fbfb2f898bae6a97bfc701c3d773fc661c15adb7 <daniele@kuama.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
