@@ -1,5 +1,5 @@
 # ios-location-listener
-This library provides the possibility to read the user location even if the user or the system stops the app.
+This library provides the possibility to read the user location even if the app is in background.
 
 ## Installation
 
