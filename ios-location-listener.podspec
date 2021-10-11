@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = 'ios-location-listener'
   s.version          = '0.4.1'
-  s.summary          = 'A small framework to monitor user position even when your app gets killed'
+  s.summary          = 'A small framework to monitor user position even when your app is in background.'
 
   s.description      = <<-DESC
-    A small framework to monitor user position even when your app gets killed. It will trigger a notification to let the user know we are tracking his position when the app is killed. Of course, it lets you start and stop the location tracking.
+    A small framework to monitor user position even when your app is in background.
                        DESC
 
   s.homepage         = 'https://github.com/Kuama-IT/ios-location-listener'

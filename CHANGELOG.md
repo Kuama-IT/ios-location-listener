@@ -1,3 +1,7 @@
+## Not released
+- Updated script for swiftlint and swiftformat
+- Updated project description in README and in podspec.
+
 # Version 0.4.1
 > 2021-10-05
 - Updated podspec file with new version.

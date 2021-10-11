@@ -171,6 +171,7 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				36E23961F9EC8AC570B63E5E /* [CP] Embed Pods Frameworks */,
+				CA86333527141D9A006BD69F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -303,6 +304,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios-location-listener_Example/Pods-ios-location-listener_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CA86333527141D9A006BD69F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "../scripts/swiftformat\n../scripts/swiftlint\n";
 		};
 		F5CA3959CE52081ACE837ABC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
