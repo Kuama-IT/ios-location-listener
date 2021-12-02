@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'ios-location-listener'
-  s.version          = '0.4.1'
+  s.version          = '0.4.2'
   s.summary          = 'A small framework to monitor user position even when your app is in background.'
 
   s.description      = <<-DESC
