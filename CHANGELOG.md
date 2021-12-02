@@ -1,3 +1,8 @@
+# Version 0.4.2
+- Updated script for swiftlint and swiftformat
+- Updated project description in README and in podspec.
+- Removed remote notifications from example app
+
 # Version 0.4.1
 > 2021-10-05
 - Updated podspec file with new version.
